@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Maaf dari Aku</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #ffc0cb;
+      font-family: 'Dancing Script', cursive;
+      overflow: hidden;
+      position: relative;
+      color: #000; /* font warna hitam */
+    }
+
+    .container {
+      z-index: 1;
+      position: relative;
+      text-align: center;
+      padding-top: 100px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    h1 {
+      color: #d10077;
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    #message {
+      font-size: 1.8rem;  /* font size lebih besar */
+      margin: 20px auto;
+      min-height: 120px;
+      max-width: 600px;
+      line-height: 1.4;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 1.5rem;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #d10077;
+    }
+
+    .heart {
+      position: fixed;
+      width: 25px;
+      height: 25px;
+      background-color: #ff69b4;
+      transform: rotate(45deg);
+      animation: floatUp linear infinite;
+      opacity: 0.7;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background-color: #ff69b4;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -12.5px;
+      left: 0;
+    }
+
+    .heart::after {
+      top: 0;
+      left: -12.5px;
+    }
+
+    @keyframes floatUp {
+      0% {
+        bottom: -30px;
+        opacity: 0;
+        transform: translateX(0) rotate(45deg);
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        bottom: 100vh;
+        opacity: 0;
+        transform: translateX(30px) rotate(45deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Maaf dari Aku</h1>
+  <div id="message">Klik tombol di bawah ya...</div>
+  <button id="nextBtn">Next</button>
+</div>
+
+<audio id="bg-music" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2024/02/06/audio_323f4b5217.mp3?filename=farm-165253.mp3" type="audio/mpeg" />
+  Browser kamu tidak mendukung audio :(
+</audio>
+
+<script>
+  const messages = [
+    "Hai becebece...",
+    "Aku sadar aku salah dan nyakitin kamu.",
+    "Aku tau aku ga selucu toothless dan ubi",
+    "Aku tau aku ga seproduktif cipi, capa, capi, cepi",
+    "Aku tau aku ga setampan dan sekaya benito",
+    "Aku tau aku ga se-hot semeru",
+    "Tapi satu hal yang aku punya dan mereka engga",
+    "Aku nyata hehe",
+    "Becandaaaaa......",
+    "Yang aku punya dan mereka engga adalah...",
+    "Kamu <3",
+    "Mereka emang lucu, tamvan, kaya, tapi too bad...",
+    "Mereka ga punya kamu hehe",
+    "Aku minta maaf ya yang, sedalam-dalamnya",
+    "Ga ada maksud apa pun untuk menyakiti hatimu",
+    "And just to let you know...",
+    "I really love you just the way you are.",
+    "Love, D"
+  ];
+
+  const messageDiv = document.getElementById('message');
+  const nextBtn = document.getElementById('nextBtn');
+  const music = document.getElementById('bg-music');
+
+  let index = 0;
+
+  nextBtn.addEventListener('click', () => {
+    if (index === 0) {
+      music.volume = 0.5;
+      music.play().catch(() => {
+        alert("Klik sekali lagi buat nyalain musik ya :)");
+      });
+      startHearts();
+    }
+
+    if (index < messages.length) {
+      messageDiv.textContent = messages[index];
+      index++;
+      if (index === messages.length) {
+        nextBtn.textContent = "Selesai";
+      }
+    } else {
+      messageDiv.textContent = "Makasih udah baca semuanya 💖";
+      nextBtn.disabled = true;
+    }
+  });
+
+  function startHearts() {
+    setInterval(() => {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 10000);
+    }, 300);
+  }
+</script>
+
+</body>
+</html>
